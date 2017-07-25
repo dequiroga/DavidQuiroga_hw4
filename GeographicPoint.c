@@ -62,7 +62,7 @@ int main(void){
 	int j=0;
 
 	//Delimiter
-	int len=10;
+	int len=2000;
 	char datos[len];
 	char *dato_I;
 	const char *delimiter;
