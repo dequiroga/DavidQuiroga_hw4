@@ -92,46 +92,49 @@ int *MH(int *mapa){
 	int i;
 	for(i=1;i<n_iterations;i++){
 		int lat_prime = rdm(lat_0);
-		lat_prime=lat_prime%max_lat;
+		lat_prime=lat_prime%max_lat; //Para no salir del mapa
 		int lng_prime = rdm(lng_0);
-		lng_prime=lng_prime%max_lng;
-		if(lat_prime<0){
-			lat_prime=-lat_prime;
+		lng_prime=lng_prime%max_lng; //Para no salir del mapa
+		if(lat_prime<0){   
+			lat_prime=-lat_prime;  //Para evitar negtivos
 		}
 		if(lng_prime<0){
-			lng_prime=-lng_prime;
+			lng_prime=-lng_prime;  //Para evitar negativos
 		}
-		//printf("%d\n", lat_prime);
-		//printf("%d\n", lng_prime);
-		float alpha=menor_radio(mapa, lat_prime, lng_prime)/menor_radio(mapa, lat_0, lng_0);
+		float alpha=menor_radio(mapa, lat_prime, lng_prime)/menor_radio(mapa, LAT[i-1], LNG[i-0]);
 		if(alpha>=1.0){
 			LAT[i]=lat_prime;
 			LNG[i]=lng_prime;
+			R[i]=menor_radio(mapa, lat_prime, lng_prime);
 		}
 		else{
 			float beta =(float) rand()/RAND_MAX;
 			if(beta<=alpha){
 				LAT[i]=lat_prime;
 				LNG[i]=lng_prime;
+				R[i]=menor_radio(mapa, lat_prime, lng_prime);
 			}
 			else{
 				LAT[i]=LAT[i-1];
 				LNG[i]=LNG[i-1];
+				R[i]=menor_radio(mapa, LAT[i-1], LNG[i-1]);
 			}
 		}
 	}
 	
 	//Promedio 
-	int LAT_NEMO=0;
-	int LNG_NEMO=0;
+	int k; //Indice maximo de latitud y longitud
+	float R_max=0;
 	int c;
 	for(c=0;c<n_iterations;c++){
-		LAT_NEMO=LAT_NEMO+LAT[c];
-		LNG_NEMO=LNG_NEMO+LNG[c];
+		if(R[c]>R_max){
+			R_max=R[c];
+			k=c;
+		}
 	}
 	
-	Nemo[0]=LAT_NEMO/n_iterations;
-	Nemo[1]=LNG_NEMO/n_iterations;
+	Nemo[0]=LAT[k];
+	Nemo[1]=LNG[k];
 
 	return Nemo;
 }
@@ -145,7 +148,7 @@ int main(void){
 	//Contadores para leer
 	int i=0;
 	int j=0;
-	//seed
+	//seed para que el random de distinto
 	srand((unsigned)time(NULL));
 
 	//Delimiter
@@ -182,10 +185,7 @@ int main(void){
 	//	}
 	//}
 
-	printf("%d\n", MH(mapa)[0]);
-	printf("%d\n", MH(mapa)[1]);
-
-	//Se escribe un archivo con los datos
+	//Se escribe un archivo con las coordenadas
 	FILE *out;
 	int c; //Contador para tiempo
 	int n; //Contador para planeta
