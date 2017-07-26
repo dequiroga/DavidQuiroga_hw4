@@ -8,9 +8,27 @@ mapa=np.loadtxt('map_data.txt')
 
 PN=np.loadtxt('coordNemo.csv', delimiter=',')
 
-plt.scatter(PN[1],PN[0], c='red')
+R=PN[2]
+lng=PN[1]
+lat=PN[0]
 
-plt.imshow(mapa, cmap='Greens')
-plt.show()
+fig=plt.figure()
+ax=fig.add_subplot(111)
+
+#Punto Nemo
+ax.scatter(lng,lat, c='red')
+
+#Mapa
+ax.imshow(mapa, cmap='Greens')
+
+#Circulo
+circulo=plt.Circle((lng,lat), R, color='red', fill=False)
+ax.add_artist(circulo)
+
+plt.savefig('PuntoNemo.pdf')
 plt.close()
+
+
+
+
 
