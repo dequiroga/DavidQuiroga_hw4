@@ -70,7 +70,7 @@ int rdm(int centro){
 int *MH(int *mapa){
 	
 	int *Nemo;
-	Nemo=malloc(2*sizeof(int));
+	Nemo=malloc(3*sizeof(int));
 
 	int n_iterations=2000;
 	int lat_0=390;
@@ -135,6 +135,7 @@ int *MH(int *mapa){
 	
 	Nemo[0]=LAT[k];
 	Nemo[1]=LNG[k];
+	Nemo[2]=R_max;
 
 	return Nemo;
 }
@@ -198,7 +199,7 @@ int main(void){
 	} 
 
 	//Se escriben las coordenadas del punto Nemo(indices en el mapa).
-		fprintf(out, "%d, %d\n", MH(mapa)[0], MH(mapa)[1]);
+		fprintf(out, "%d, %d, %f\n", MH(mapa)[0], MH(mapa)[1], (float)MH(mapa)[2]);
 
 
 	return 0;
