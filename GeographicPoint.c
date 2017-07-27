@@ -101,7 +101,7 @@ int *MH(int *mapa){
 		if(lng_prime<0){
 			lng_prime=-lng_prime;  //Para evitar negativos
 		}
-		float alpha=menor_radio(mapa, lat_prime, lng_prime)/menor_radio(mapa, LAT[i-1], LNG[i-0]);
+		float alpha=exp(pow(menor_radio(mapa, lat_prime, lng_prime)-menor_radio(mapa, LAT[i-1], LNG[i-0]),2));
 		if(alpha>=1.0){
 			LAT[i]=lat_prime;
 			LNG[i]=lng_prime;
@@ -177,14 +177,19 @@ int main(void){
 
 	fclose(in);	
 
-	//Prueba de lectura de datos
-	//int c;
-	//int d;
-	//for(c=0;c<max_lat;c++){
-	//	for(d=0;d<max_lng;d++){
-	//		printf("dato (%d,%d): %d\n",c,d, mapa[I(c,d)]);
-	//	}
-	//}
+	//Coordenadas en latitud longitud
+	float latitud;
+	printf("%d\n", MH(mapa)[0]);
+	latitud=((MH(mapa)[0]*180.0)/-500.0)+90.0;
+
+	float longitud;
+	longitud=((MH(mapa)[1]*360.0)/744.0)-180.0;
+
+	float radio;
+	radio=MH(mapa)[2]*360.0/744.0;
+
+	//Imprime coordenadas
+	printf("las coordenadas del punto más alejado son: %f, %f\n", longitud, latitud);
 
 	//Se escribe un archivo con las coordenadas
 	FILE *out;
@@ -199,7 +204,7 @@ int main(void){
 	} 
 
 	//Se escriben las coordenadas del punto Nemo(indices en el mapa).
-		fprintf(out, "%d, %d, %f\n", MH(mapa)[0], MH(mapa)[1], (float)MH(mapa)[2]);
+		fprintf(out, "%f, %f, %f\n", latitud, longitud, radio);
 
 
 	return 0;
