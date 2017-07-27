@@ -12,6 +12,7 @@ R=PN[2]
 lng=PN[1]
 lat=PN[0]
 
+
 fig=plt.figure()
 ax=fig.add_subplot(111)
 
@@ -19,7 +20,7 @@ ax=fig.add_subplot(111)
 ax.scatter(lng,lat, c='red')
 
 #Mapa
-ax.imshow(mapa, cmap='Greens')
+ax.imshow(mapa, cmap='Greens', extent=[-180,180,-90,90])
 
 #Circulo
 circulo=plt.Circle((lng,lat), R, color='red', fill=False)
