@@ -179,14 +179,17 @@ int main(void){
 
 	//Coordenadas en latitud longitud
 	float latitud;
-	printf("%d\n", MH(mapa)[0]);
 	latitud=((MH(mapa)[0]*180.0)/-500.0)+90.0;
 
 	float longitud;
 	longitud=((MH(mapa)[1]*360.0)/744.0)-180.0;
 
-	float radio;
-	radio=MH(mapa)[2]*360.0/744.0;
+	float RR;
+	float radiox;
+	RR=MH(mapa)[2];
+	radiox=RR*360.0/744.0;
+	float radioy;
+	radioy=RR*180.0/500.0;
 
 	//Imprime coordenadas
 	printf("las coordenadas del punto más alejado son: %f, %f\n", longitud, latitud);
@@ -204,7 +207,7 @@ int main(void){
 	} 
 
 	//Se escriben las coordenadas del punto Nemo(indices en el mapa).
-		fprintf(out, "%f, %f, %f\n", latitud, longitud, radio);
+		fprintf(out, "%f, %f, %f, %f\n", latitud, longitud, radiox, radioy);
 
 
 	return 0;
