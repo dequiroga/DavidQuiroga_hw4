@@ -8,7 +8,8 @@ mapa=np.loadtxt('map_data.txt')
 
 PN=np.loadtxt('coordNemo.csv', delimiter=',')
 
-R=PN[2]
+Rx=PN[2]
+Ry=PN[3]
 lng=PN[1]
 lat=PN[0]
 
@@ -23,8 +24,17 @@ ax.scatter(lng,lat, c='red')
 ax.imshow(mapa, cmap='Greens', extent=[-180,180,-90,90])
 
 #Circulo
-circulo=plt.Circle((lng,lat), R, color='red', fill=False)
-ax.add_artist(circulo)
+theta=np.linspace(0,2*np.pi,1000)
+x=Rx*np.cos(theta)+lng
+y=Ry*np.sin(theta)+lat
+
+ax.plot(x,y,c='red')
+#ax.set_xlim(-180,180)
+#ax.set_ylim(-90,90)
+
+
+#circulo=plt.Circle((lng,lat), R, color='red', fill=False)
+#ax.add_artist(circulo)
 
 plt.savefig('PuntoNemo.pdf')
 plt.close()
