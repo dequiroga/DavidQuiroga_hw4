@@ -29,10 +29,11 @@ x=Rx*np.cos(theta)+lng
 y=Ry*np.sin(theta)+lat
 
 ax.plot(x,y,c='red')
-#ax.set_xlim(-180,180)
-#ax.set_ylim(-90,90)
-
-
+ax.set_xlabel('$Longitud$', fontsize=15)
+ax.set_ylabel('$Latitud$', fontsize=15)
+ax.set_xlim(-180,180)
+ax.set_ylim(-90,90)
+ax.set_title('$Mapa$ $de$ $La$ $Tierra$ $-$ $Punto$ $Nemo$', fontsize=20)
 #circulo=plt.Circle((lng,lat), R, color='red', fill=False)
 #ax.add_artist(circulo)
 
