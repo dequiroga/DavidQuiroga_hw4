@@ -1,5 +1,6 @@
 #Genera las graficas de los datos que se obtienen de GraphicPoint.c
 
+#Load Packages
 import numpy as np 
 import matplotlib.pyplot as plt
 
